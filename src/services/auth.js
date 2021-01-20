@@ -55,7 +55,8 @@ const login = async ({ email, password }) => {
     if (!isCorrectPassword) throw new CustomError(errorCodes.WRONG_PASSWORD);
 
     const accessToken = await generateAccessToken(user._id);
-    return { status: 1, data: accessToken };
+
+    return { status: 1, data: { token: accessToken, role: user.role, username: user.username } };
 };
 
 const verifyAccessToken = async (accessToken) => {
