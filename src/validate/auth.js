@@ -9,10 +9,11 @@ const login = {
 
 const register = {
     body: Joi.object({
-        email: Joi.string().email().trim().lowercase().required(),
+        email: Joi.string().email().required(),
         username: Joi.string().trim().required(),
         password: Joi.string().trim().required(),
-        againPassword: Joi.string().trim().required()
+        againPassword: Joi.string().trim().required(),
+        role: Joi.string()
     }),
 };
 

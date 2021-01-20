@@ -1,13 +1,17 @@
 const userDao = require('../daos/user')
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcrypt');
+const CustomError = require('../errors/CustomError');
 
 const { JWT_SECRET_KEY, JWT_EXPIRES_TIME } = process.env
-const generatorAccessToken = async (userId) => {
-    const accessToken = await jwt.sign({ userId },
-        JWT_SECRET_KEY, { expiresIn: JWT_EXPIRES_TIME });
+
+const generateAccessToken = async (userId) => {
+    const accessToken = await jwt.sign({ userId }, JWT_SECRET_KEY, {
+        expiresIn: JWT_EXPIRES_TIME,
+    });
+
     return accessToken
-}
+};
 const generateSalt = (rounds) => {
     return bcrypt.genSaltSync(rounds);
 };
@@ -20,6 +24,7 @@ const hashBcrypt = (text, salt) => {
     });
     return hashedBcrypt;
 };
+
 const compareBcrypt = async (data, hashed) => {
     const isCorrect = await new Promise((resolve, reject) => {
         bcrypt.compare(data, hashed, (err, same) => {
@@ -43,19 +48,25 @@ const register = async ({ email, password, againPassword, username, role }) => {
     return { status: 1, data: user }
 }
 const login = async ({ email, password }) => {
-    const user = await userDao.findUser({ email })
-    if (!user) {
-        return { status: 0, data: "Không tìm thấy User" }
-    }
-    const isCorrectPassword = await compareBcrypt(password, user.password)
-    if (!isCorrectPassword) {
-        return { status: 0, data: "Mật khẩu chưa đúng" }
-    }
-    const userId = user._id;
-    const accessToken = await generatorAccessToken(userId);
-    return { status: 1, data: accessToken }
-}
+    const user = await userDao.findUser({ email });
+    if (!user) throw new CustomError(errorCodes.USER_NOT_FOUND);
+
+    const isCorrectPassword = await compareBcrypt(password, user.password);
+    if (!isCorrectPassword) throw new CustomError(errorCodes.WRONG_PASSWORD);
+
+    const accessToken = await generateAccessToken(user._id);
+    return { status: 1, data: accessToken };
+};
+
+const verifyAccessToken = async (accessToken) => {
+    const data = await jwt.verify(accessToken, JWT_SECRET_KEY);
+    const { userId } = data;
+    const user = await userDao.findUser({ _id: userId });
+    return user;
+};
+
 module.exports = {
     register,
-    login
+    login,
+    verifyAccessToken
 }

@@ -1,12 +1,14 @@
 const { Joi, validate } = require('express-validation');
 
-const lesson = {
+const image = {
     body: Joi.object({
         name: Joi.string().trim().required(),
         desc: Joi.string().trim().required(),
+        idLesson: Joi.string().trim().required(),
+        url: Joi.string().trim().required(),
     }),
 };
 
 module.exports = {
-    lessonValidate: validate(lesson, { keyByField: true }),
+    imageValidate: validate(image, { keyByField: true }),
 };

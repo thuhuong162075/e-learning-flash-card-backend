@@ -2,6 +2,7 @@ const lessonService = require('../services/lesson')
 
 const getListAllLesson = async (req, res) => {
     const result = await lessonService.getListAll()
+    console.log("result", result)
     return res.send(result)
 }
 const createLesson = async (req, res) => {
