@@ -1,5 +1,6 @@
 const express = require('express')
 const bodyParser = require('body-parser')
+const cors = require('cors');
 const errorHandler = require('./src/middlewares/errorHandler');
 
 require('dotenv').config();
@@ -9,6 +10,7 @@ require('./src/models')
 const { PORT } = require('./src/configs')
 const app = express()
 
+app.use(cors());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
