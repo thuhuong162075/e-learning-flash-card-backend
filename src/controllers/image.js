@@ -26,7 +26,7 @@ const deleteImageByIdLesson = async (req, res) => {
     return res.send(result)
 }
 const findImageByIdLesson = async (req, res) => {
-    const { idLesson } = req.body
+    const { idLesson } = req.params
     const result = await imageService.findImageByIdLesson({ idLesson })
     return res.send(result)
 }
