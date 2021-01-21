@@ -11,6 +11,7 @@ const createLesson = async ({ name, desc }) => {
 const findLesson = async (condition) => {
     if (typeof condition === 'object' && condition !== null) {
         const lesson = await Lesson.findOne(condition);
+        console.log('lesson', lesson)
         return lesson;
     }
     return null;

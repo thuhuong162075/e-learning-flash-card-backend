@@ -19,6 +19,16 @@ const createLesson = async ({ name, desc }) => {
         return { status: 0, data: e }
     }
 }
+
+const detailLessonById = async ({ id }) => {
+    try {
+        const lesson = await lessonDao.findLesson({ _id: id })
+        return { status: 1, data: lesson }
+    } catch (e) {
+        console.log(e)
+        return { status: 0, data: e }
+    }
+}
 const editLessonById = async ({ id, data }) => {
     try {
         const lesson = await lessonDao.editLesson({ id, data })
@@ -42,5 +52,6 @@ module.exports = {
     createLesson,
     getListAll,
     editLessonById,
-    deleteLessonById
+    deleteLessonById,
+    detailLessonById
 }

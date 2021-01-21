@@ -22,7 +22,6 @@ const auth = async (req, res, next) => {
 const authAdmin = async (req, res, next) => {
     const { authorization } = req.headers;
     if (!authorization) throw new CustomError(codes.UNAUTHORIZED);
-
     const [tokenType, accessToken] = authorization.split(' ');
 
     if (tokenType !== 'Bearer') throw new Error(codes.UNAUTHORIZED);

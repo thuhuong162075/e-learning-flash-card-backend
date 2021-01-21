@@ -10,6 +10,15 @@ const createImage = async ({ desc, name, url, idLesson }) => {
         return { status: 0, data: e }
     }
 }
+const findImageByIdLesson = async ({ idLesson }) => {
+    try {
+        const image = await imageDao.findImage({ idLesson })
+        return { status: 1, data: image }
+    } catch (e) {
+        console.log(e)
+        return { status: 0, data: e }
+    }
+}
 const editImage = async ({ id, data }) => {
     try {
         const image = await imageDao.editImage({ id, data })
@@ -32,5 +41,6 @@ const deleteImageById = async (id) => {
 module.exports = {
     createImage,
     editImage,
-    deleteImageById
+    deleteImageById,
+    findImageByIdLesson
 }
