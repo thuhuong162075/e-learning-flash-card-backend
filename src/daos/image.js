@@ -12,7 +12,6 @@ const createImage = async ({ url, desc, name, idLesson }) => {
 const findImage = async (condition) => {
     if (typeof condition === 'object' && condition !== null) {
         const image = await Images.find(condition);
-        console.log('lesson', condition, image)
         return image;
     }
     return null;

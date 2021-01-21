@@ -1,5 +1,4 @@
 const imageDao = require('../daos/image');
-const { deleteMany } = require('../models/image');
 const Images = require('../models/image');
 
 const createImage = async ({ desc, name, url, idLesson }) => {
@@ -13,11 +12,14 @@ const createImage = async ({ desc, name, url, idLesson }) => {
 }
 const deleteImageByIdLesson = async ({ idLesson }) => {
     try {
-        const data = await Images.deleteMany({ idLesson });
-        if (!data) {
-            throw new Error(`Không có hình ảnh có idLesson là: ${idLesson}`)
+        const data = await Images.find({ idLesson });
+        if (data) {
+            for (let i = 0; i < data.length; i++) {
+                await Images.findByIdAndRemove({ _id: data[i]._id });
+            }
         }
-        return { status: 1, data: data }
+        const result = await Images.find({ idLesson });
+        return { status: 1, data: result }
     } catch (e) {
         console.log(e)
         return { status: 0, data: e }

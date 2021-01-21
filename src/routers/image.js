@@ -9,7 +9,7 @@ const { auth, authAdmin } = require('../middlewares/auth')
 imageRouter.post('/lesson/createImage', authAdmin, imageValidate, imageController.createImage)
 imageRouter.patch('/lesson/editImage', authAdmin, imageController.editImage)
 imageRouter.delete('/lesson/deleteImage', authAdmin, imageController.deleteImage)
-imageRouter.delete('/image/deleteImageByIdLesson', imageController.deleteImageByIdLesson)
+imageRouter.delete('/image/deleteImageByIdLesson', authAdmin, imageController.deleteImageByIdLesson)
 imageRouter.get('/image/getImageByIdLesson/:idLesson', auth, asyncMiddleware(imageController.findImageByIdLesson))
 
 module.exports = imageRouter

@@ -15,14 +15,14 @@ const editImage = async (req, res) => {
 const deleteImage = async (req, res) => {
     const { id } = req.body
     if (!id) {
-        throw new CustomError(codes.BAD_REQUEST, 'Hãy nhập id của lesson')
+        throw new CustomError(codes.BAD_REQUEST, 'Hãy nhập id image')
     }
     const result = await imageService.deleteLessonById(id)
     return res.send(result)
 }
 const deleteImageByIdLesson = async (req, res) => {
-    const { id } = req.body
-    const result = await imageService.deleteImageByIdLesson(id)
+    const { idLesson } = req.body
+    const result = await imageService.deleteImageByIdLesson({ idLesson })
     return res.send(result)
 }
 const findImageByIdLesson = async (req, res) => {
