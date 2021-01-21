@@ -40,7 +40,6 @@ const editLessonById = async ({ id, data }) => {
 }
 const deleteLessonById = async (id) => {
     try {
-        console.log("id", id)
         const data = await Lesson.findByIdAndRemove({ _id: id });
         if (!data) {
             throw new Error(`Không thể xoá Lesson: ${id}`)

@@ -30,7 +30,10 @@ const editImage = async ({ id, data }) => {
 }
 const deleteImageById = async (id) => {
     try {
-        await Images.deleteOne({ _id: id });
+        const data = await Images.findByIdAndRemove({ _id: id });
+        if (!data) {
+            throw new Error(`Không thể xoá Image: ${id}`)
+        }
         return { status: 1, data: id }
     } catch (e) {
         console.log(e)

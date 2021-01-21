@@ -15,7 +15,7 @@ const createLesson = async (req, res) => {
 const editLesson = async (req, res) => {
     const { id, data } = req.body
     const lessons = await lessonService.editLessonById({ id, data })
-    return res.send({ status: 1, result: lessons })
+    return res.send(lessons)
 }
 const detailLesson = async (req, res) => {
     const { id } = req.params
