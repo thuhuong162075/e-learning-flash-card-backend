@@ -23,8 +23,12 @@ const detailLesson = async (req, res) => {
 
 const deleteLesson = async (req, res) => {
     const { id } = req.body
+    // if (!id) {
+    //     throw new CustomError(errorCode.BAD_REQUEST, 'Hãy nhập id của lesson')
+    //   }
+
     const lessons = await lessonService.deleteLessonById(id)
-    return res.send({ status: 1, result: lessons })
+    return res.send(lessons)
 }
 module.exports = {
     createLesson,
