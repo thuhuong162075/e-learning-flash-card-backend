@@ -11,7 +11,7 @@ const {
 lessonRouter.get('/lesson/getAll', auth, lessonController.getListAllLesson)
 lessonRouter.post('/lesson/createLesson', authAdmin, asyncMiddleware(lessonController.createLesson))
 lessonRouter.get('/lesson/detailLesson/:id', auth, lessonController.detailLesson)
-lessonRouter.patch('/lesson/editLesson/:id', authAdmin, lessonController.editLesson)
+lessonRouter.patch('/lesson/editLesson', authAdmin, asyncMiddleware(lessonController.editLesson))
 lessonRouter.delete('/lesson/deleteLesson', authAdmin, lessonController.deleteLesson)
 
 module.exports = lessonRouter

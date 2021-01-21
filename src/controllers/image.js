@@ -20,14 +20,20 @@ const deleteImage = async (req, res) => {
     const result = await imageService.deleteLessonById(id)
     return res.send(result)
 }
-const findImageByIdLesson = async (req, res) => {
+const deleteImageByIdLesson = async (req, res) => {
     const { id } = req.body
-    const result = await imageService.findImageByIdLesson(id)
+    const result = await imageService.deleteImageByIdLesson(id)
+    return res.send(result)
+}
+const findImageByIdLesson = async (req, res) => {
+    const { idLesson } = req.body
+    const result = await imageService.findImageByIdLesson({ idLesson })
     return res.send(result)
 }
 module.exports = {
     createImage,
     editImage,
     deleteImage,
+    deleteImageByIdLesson,
     findImageByIdLesson
 }

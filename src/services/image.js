@@ -1,4 +1,5 @@
-const imageDao = require('../daos/image')
+const imageDao = require('../daos/image');
+const { deleteMany } = require('../models/image');
 const Images = require('../models/image');
 
 const createImage = async ({ desc, name, url, idLesson }) => {
@@ -10,10 +11,25 @@ const createImage = async ({ desc, name, url, idLesson }) => {
         return { status: 0, data: e }
     }
 }
+const deleteImageByIdLesson = async ({ idLesson }) => {
+    try {
+        const data = await Images.deleteMany({ idLesson });
+        if (!data) {
+            throw new Error(`Không có hình ảnh có idLesson là: ${idLesson}`)
+        }
+        return { status: 1, data: data }
+    } catch (e) {
+        console.log(e)
+        return { status: 0, data: e }
+    }
+}
 const findImageByIdLesson = async ({ idLesson }) => {
     try {
-        const image = await imageDao.findImage({ idLesson })
-        return { status: 1, data: image }
+        const data = await imageDao.findImage({ idLesson });
+        if (!data) {
+            throw new Error(`Không có hình ảnh có idLesson là: ${idLesson}`)
+        }
+        return { status: 1, data: data }
     } catch (e) {
         console.log(e)
         return { status: 0, data: e }
@@ -45,5 +61,6 @@ module.exports = {
     createImage,
     editImage,
     deleteImageById,
-    findImageByIdLesson
+    findImageByIdLesson,
+    deleteImageByIdLesson
 }

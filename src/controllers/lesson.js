@@ -14,6 +14,7 @@ const createLesson = async (req, res) => {
 }
 const editLesson = async (req, res) => {
     const { id, data } = req.body
+    console.log("req body", req.body)
     const lessons = await lessonService.editLessonById({ id, data })
     return res.send(lessons)
 }
