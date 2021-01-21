@@ -10,7 +10,7 @@ const createLesson = async (req, res) => {
     const { name, desc } = req.body
     console.log("body", req.body)
     const lesson = await lessonService.createLesson({ name, desc })
-    return res.send({ status: 1, result: lesson })
+    return res.send(lesson)
 }
 const editLesson = async (req, res) => {
     const { id, data } = req.body
@@ -20,7 +20,7 @@ const editLesson = async (req, res) => {
 const detailLesson = async (req, res) => {
     const { id } = req.params
     const lesson = await lessonService.detailLessonById({ id })
-    return res.send({ status: 1, result: lesson })
+    return res.send(lesson)
 }
 
 const deleteLesson = async (req, res) => {
