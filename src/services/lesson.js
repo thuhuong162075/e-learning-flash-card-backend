@@ -12,6 +12,10 @@ const getListAll = async () => {
 }
 const createLesson = async ({ name, desc }) => {
     try {
+        const listLesson = await Lesson.find({})
+        if (listLesson.findIndex(item => item.name.trim().toLowerCase() === name.trim().toLowerCase()) >= 0) {
+            throw new Error(`Bài học ${name} đã tồn tại `)
+        }
         const lesson = await lessonDao.createLesson({ name, desc })
         return { status: 1, data: lesson }
     } catch (e) {
