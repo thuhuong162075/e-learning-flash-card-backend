@@ -1,4 +1,6 @@
 const lessonService = require('../services/lesson')
+const CustomError = require('../errors/CustomError');
+const codes = require('../errors/code');
 
 const getListAllLesson = async (req, res) => {
     const result = await lessonService.getListAll()
@@ -23,10 +25,9 @@ const detailLesson = async (req, res) => {
 
 const deleteLesson = async (req, res) => {
     const { id } = req.body
-    // if (!id) {
-    //     throw new CustomError(errorCode.BAD_REQUEST, 'Hãy nhập id của lesson')
-    //   }
-
+    if (!id) {
+        throw new CustomError(codes.BAD_REQUEST, 'Hãy nhập id của lesson')
+    }
     const lessons = await lessonService.deleteLessonById(id)
     return res.send(lessons)
 }
