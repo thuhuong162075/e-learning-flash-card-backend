@@ -2,6 +2,7 @@ const resultDao = require('../daos/result');
 
 const getResultByUserId = async ({ userId, lessonId }) => {
   const result = await resultDao.findResult({ userId, lessonId });
+  console.log("result", result)
   return { status: 1, data: result };
 };
 

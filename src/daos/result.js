@@ -14,7 +14,7 @@ const findResult = async (condition) => {
 };
 
 const editResult = async ({ lessonId, userId, status, arrImage }) => {
-  let findResult = await findResult({ lessonId, userId });
+  let findResult = await Result.findOne({ lessonId, userId });
   if (!findResult) {
     throw new Error(`Not found result ${lessonId} and ${userId}`);
   }
