@@ -3,7 +3,7 @@ const CustomError = require('../errors/CustomError');
 const codes = require('../errors/code');
 
 const getResultByUserId = async (req, res) => {
-  const { userId, lessonId } = req.params;
+  const { userId, lessonId } = req.query;
   if (!userId) {
     throw new CustomError(codes.BAD_REQUEST, 'Not found userId');
   }
