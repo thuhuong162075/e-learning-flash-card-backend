@@ -1,23 +1,27 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
+
 const resultSchema = new mongoose.Schema(
-    {
-        idUser: {
-            type: Schema.Types.ObjectId,
-        },
-        idLesson: {
-            type: Schema.Types.ObjectId,
+  {
+    userId: {
+      type: Schema.Types.ObjectId,
+    },
+    lessonId: {
+      type: Schema.Types.ObjectId,
+    },
+    status: Number,
+    arrImage: [
+      {
+        idImage: {
+          type: Schema.Types.ObjectId,
         },
         status: Number,
-        arrImage: [{
-            idImage: {
-                type: Schema.Types.ObjectId,
-            },
-            status: Number
-        }]
-    }, {
-    timestamps: true
-}
+      },
+    ],
+  },
+  {
+    timestamps: true,
+  },
 );
 
 module.exports = mongoose.model('Result', resultSchema, 'result');

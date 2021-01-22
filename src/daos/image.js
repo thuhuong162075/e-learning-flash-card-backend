@@ -1,35 +1,37 @@
 const Images = require('../models/image');
 
-const createImage = async ({ url, desc, name, idLesson }) => {
-    try {
-        const image = await Images.create({ url, desc, name, idLesson })
-        return image
-    } catch (e) {
-        console.log(e)
-        return null
-    }
-}
+const createImage = async ({ url, desc, name, lessonId }) => {
+  const image = await Images.create({ url, desc, name, lessonId });
+  return image;
+};
+
 const findImage = async (condition) => {
-    if (typeof condition === 'object' && condition !== null) {
-        const image = await Images.find(condition);
-        return image;
-    }
-    return null;
-}
+  if (typeof condition === 'object' && condition !== null) {
+    const image = await Images.find(condition);
+    return image;
+  }
+  return null;
+};
+
+const findImageAndRemove = async (id) => {
+  const result = Images.findByIdAndRemove(id);
+  return result;
+};
+
 const editImage = async ({ id, data }) => {
-    try {
-        let imageById = await Images.findById(id);
-        imageById.name = data.name || imageById.name
-        imageById.desc = data.desc || imageById.desc
-        await imageById.save();
-        return await Images.findById(id)
-    } catch (e) {
-        console.log(e)
-    }
-}
+  let imageById = await Images.findById(id);
+  if (!imageById) {
+    throw new Error(`Not found ${id}`);
+  }
+  imageById.name = data.name || imageById.name;
+  imageById.desc = data.desc || imageById.desc;
+  await imageById.save();
+  return imageById
+};
 
 module.exports = {
-    createImage,
-    editImage,
-    findImage
-}
+  createImage,
+  editImage,
+  findImage,
+  findImageAndRemove,
+};

@@ -1,31 +1,27 @@
 const Result = require('../models/result');
 
-const createResult = async ({ idUser, idLesson, arrImage, status }) => {
-    try {
-        const result = await Result.create({ idUser, idLesson, arrImage, status })
-        return result
-    } catch (e) {
-        console.log(e)
-    }
-}
+const createResult = async ({ userId, lessonId, arrImage, status }) => {
+  const result = await Result.create({ userId, lessonId, arrImage, status });
+  return result;
+};
 
 const findResult = async (condition) => {
-    if (typeof condition === 'object' && condition !== null) {
-        const result = await Result.findOne(condition);
-        return result;
-    }
-    return null;
-}
-const editResult = async ({ idLesson, idUser, status, arrImage }) => {
-    try {
-        let findResult = await findResult({ idLesson, idUser });
-        findResult.status = status || findResult.status
-        findResult.arrImage = arrImage || findResult.arrImage
-        await findResult.save();
-        return await Result.findResult({ idLesson, idUser })
-    } catch (e) {
-        console.log(e)
-    }
-}
+  if (typeof condition === 'object' && condition !== null) {
+    const result = await Result.findOne(condition);
+    return result;
+  }
+  return null;
+};
 
-module.exports = { createResult, findResult, editResult }
+const editResult = async ({ lessonId, userId, status, arrImage }) => {
+  let findResult = await findResult({ lessonId, userId });
+  if (!findResult) {
+    throw new Error(`Not found result ${lessonId} and ${userId}`);
+  }
+  findResult.status = status || findResult.status;
+  findResult.arrImage = arrImage || findResult.arrImage;
+  await findResult.save();
+  return findResult;
+};
+
+module.exports = { createResult, findResult, editResult };
