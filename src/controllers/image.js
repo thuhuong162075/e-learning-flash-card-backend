@@ -32,9 +32,9 @@ const deleteImageByLessonId = async (req, res) => {
   return res.send(result);
 };
 
-const findImageBylessonId = async (req, res) => {
+const findImageByLessonId = async (req, res) => {
   const { lessonId } = req.params;
-  const result = await imageService.findImageBylessonId({ lessonId });
+  const result = await imageService.findImageByLessonId({ lessonId });
   return res.send(result);
 };
 
@@ -43,5 +43,5 @@ module.exports = {
   editImage,
   deleteImage,
   deleteImageByLessonId,
-  findImageBylessonId,
+  findImageByLessonId,
 };

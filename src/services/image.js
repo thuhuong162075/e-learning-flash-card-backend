@@ -15,10 +15,10 @@ const deleteImageByLessonId = async ({ lessonId }) => {
   return { status: 1 };
 };
 
-const findImageBylessonId = async ({ lessonId }) => {
+const findImageByLessonId = async ({ lessonId }) => {
   const data = await imageDao.findImage({ lessonId });
   if (!data) {
-    throw new Error(`Không có hình ảnh có lessonId là: ${lessonId}`);
+    throw new Error(`Not found ${lessonId}`);
   }
   return { status: 1, data: data };
 };
@@ -31,7 +31,7 @@ const editImage = async ({ id, data }) => {
 const deleteImageById = async (id) => {
   const data = await imageDao.findImageAndRemove(id);
   if (!data) {
-    throw new Error(`Không thể xoá Image: ${id}`);
+    throw new Error(`Not delete Image has ${id}`);
   }
   return { status: 1, data: id };
 };
@@ -40,6 +40,6 @@ module.exports = {
   createImage,
   editImage,
   deleteImageById,
-  findImageBylessonId,
+  findImageByLessonId,
   deleteImageByLessonId,
 };

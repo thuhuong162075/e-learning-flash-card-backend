@@ -26,7 +26,7 @@ imageRouter.delete(
 imageRouter.get(
   '/image/getImageBylessonId/:lessonId',
   auth,
-  asyncMiddleware(imageController.findImageBylessonId),
+  asyncMiddleware(imageController.findImageByLessonId),
 );
 
 module.exports = imageRouter;
