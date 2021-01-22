@@ -5,6 +5,11 @@ const createLesson = async ({ name, desc }) => {
   return lesson;
 };
 
+const getAllLesson = async () => {
+  const lesson = await Lesson.find({});
+  return lesson;
+};
+
 const findLesson = async (condition) => {
   if (typeof condition === 'object' && condition !== null) {
     const lesson = await Lesson.findOne(condition);
@@ -33,5 +38,6 @@ module.exports = {
   createLesson,
   findLesson,
   editLesson,
-  findLessonAndRemove
+  findLessonAndRemove,
+  getAllLesson
 };

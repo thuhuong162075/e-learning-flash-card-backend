@@ -1,7 +1,7 @@
 const lessonDao = require('../daos/lesson');
 
 const getListAll = async () => {
-  const lesson = await lessonDao.findLesson({});
+  const lesson = await lessonDao.getAllLesson();
   return { status: 1, data: lesson };
 };
 
