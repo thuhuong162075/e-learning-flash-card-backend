@@ -42,7 +42,7 @@ const register = async ({ email, password, username, role }) => {
 		return {
 			status: 0,
 			data: 'Tài khoản mail đang được đăng ký, vui lòng sử dụng tài khoản khác',
-		};i
+		}; i
 	}
 	const salt = generateSalt(10);
 	password = await hashBcrypt(password, salt);
@@ -58,7 +58,7 @@ const login = async ({ email, password }) => {
 	const accessToken = await generateAccessToken(user._id);
 	return {
 		status: 1,
-		data: { token: accessToken, role: user.role, username: user.username },
+		data: { token: accessToken, role: user.role, username: user.username, userId: user._id },
 	};
 };
 
