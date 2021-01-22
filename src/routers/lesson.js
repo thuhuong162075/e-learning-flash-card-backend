@@ -10,12 +10,12 @@ lessonRouter.get('/lesson/getAll', auth, asyncMiddleware(lessonController.getLis
 lessonRouter.post(
   '/lesson/createLesson',
   authAdmin,
+  lessonValidate,
   asyncMiddleware(lessonController.createLesson),
 );
 lessonRouter.get(
   '/lesson/detailLesson/:id',
   auth,
-  lessonValidate,
   asyncMiddleware(lessonController.detailLesson),
 );
 lessonRouter.patch(
